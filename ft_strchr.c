@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:00:34 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/20 16:23:59 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/05/22 09:46:20 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == (t_byte)c)
+		if (s[i] == (char)c)
 			return ((char *)s + i);
 		i++;
 	}
-	if ((t_byte)c == '\0')
+	if ((char)c == '\0')
 		return ((char *)s + i);
 	return (NULL);
 }
+
 /*
 #include<stdio.h>
 int	main()

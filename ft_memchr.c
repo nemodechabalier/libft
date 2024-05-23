@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:01:15 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/20 12:46:45 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:43:33 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 void	*ft_memchr(const void *s, int c, size_t size)
 {
 	size_t	i;
-	size_t	n;
 	t_byte	*pts;
 	t_byte	ptc;
 
 	i = 0;
-	n = 0;
 	pts = (t_byte *)s;
 	ptc = (t_byte)c;
-	if (s == NULL)
-		return (NULL);
 	while (i < size)
 	{
 		if (pts[i] == ptc)

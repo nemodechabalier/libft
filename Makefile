@@ -1,128 +1,62 @@
-##### VARIABLES #####
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/05/23 16:56:38 by nde-chab          #+#    #+#              #
+#    Updated: 2024/05/23 18:26:34 by nde-chab         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-## TARGET ##
+NAME = libft.a
 
-NAME := libft.a
+CC = cc
 
-## COMPILATION ##
+CFLAGS = -Wall -Wextra -Werror
 
-CC := cc
+INCLUDES = -I .
 
-CFLAGS += -Wall
-CFLAGS += -Wextra 
+FUNC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
+		ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c \
+		ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c \
+		ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c \
+		ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c
 
-ifneq ($(NOERROR), true)
-	CFLAGS += -Werror
-endif
+FUNCADDITIONAL =	ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
+			ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
+			ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 
-ifeq ($(DEBUG), true)
-	DFLAGS += -g3
-	ifneq ($(NOSANITIZE), true)
-		DFLAGS += -fsanitize=address,undefined,leak
-	endif
-endif
+BONUS =	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
+		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
+SRCS = $(FUNC) $(FUNCADDITIONAL)
 
-AR := ar
+SRCSALL = $(SRCS) $(BONUS)
 
-ARFLAGS := rcs
+OBJS = $(SRCS:.c=.o)
 
-## SOURCES ##
+OBJSALL = $(SRCSALL:.c=.o)
 
-SRCS_DIR := .
-
-SRCS += ft_isalpha.c
-SRCS += ft_isdigit.c
-SRCS += ft_isalnum.c
-SRCS += ft_isascii.c
-SRCS += ft_isprint.c
-SRCS += ft_strlen.c
-SRCS += ft_memset.c
-SRCS += ft_bzero.c
-SRCS += ft_memcpy.c
-SRCS += ft_memmove.c
-SRCS += ft_strlcpy.c
-SRCS += ft_strlcat.c
-SRCS += ft_toupper.c
-SRCS += ft_tolower.c
-SRCS += ft_strchr.c
-SRCS += ft_strrchr.c
-SRCS += ft_strncmp.c
-SRCS += ft_memchr.c
-SRCS += ft_memcmp.c
-SRCS += ft_strnstr.c
-SRCS += ft_atoi.c
-SRCS += ft_calloc.c
-SRCS += ft_strdup.c
-SRCS += ft_substr.c
-SRCS += ft_strjoin.c
-SRCS += ft_strtrim.c
-SRCS += ft_split.c
-SRCS += ft_itoa.c
-SRCS += ft_strmapi.c
-SRCS += ft_striteri.c
-SRCS += ft_putchar_fd.c
-SRCS += ft_putstr_fd.c
-SRCS += ft_putendl_fd.c
-SRCS += ft_putnbr_fd.c
-
-#SRCS += ft_lstnew.c
-#SRCS += ft_lstadd_front.c
-#SRCS += ft_lstsize.c
-#SRCS += ft_lstlast.c
-#SRCS += ft_lstadd_back.c
-#SRCS += ft_lstdelone.c
-#SRCS += ft_lstclear.c
-
-vpath %.c $(SRCS_DIR)
-
-## HEADERS ##
-
-INCLUDES_DIR := .
-
-HEADERS += libft.h
-
-vpath %.h $(INCLUDES_DIR)
-
-## OBJECTS ##
-
-OBJS_DIR := .
-
-OBJS := $(patsubst %.c, %.o, $(SRCS))
-
-##### HOOKS #####
-
-GIT_ROOT_PATH := $(shell git rev-parse --show-toplevel)
-
-PREPUSH_FILE := $(GIT_ROOT_PATH)/.git/hooks/pre-push
+%.o : %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
 
 
-##### RULES #####
+$(NAME) : $(OBJS)
+	ar -rsc $(NAME) $(OBJS)
 
-all: $(NAME)
+all : $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
+bonus : $(OBJSALL)
+	ar -rsc $(NAME) $(OBJSALL)
 
-$(OBJS): $(OBJS_DIR)/%.o: %.c $(HEADERS) | $(OBJS_DIR)  # pattern rule
-	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDES_DIR)
+clean : 
+	rm -rf $(OBJSALL)
 
-$(OBJS_DIR):
-	@mkdir $(OBJS_DIR) 2>/dev/null || true # 2 is an ionumber
+fclean : clean
+	rm -rf $(NAME)
 
-clean:
-	$(RM) $(OBJS)
-	@rmdir $(OBJS_DIR) 2>/dev/null || true
+re : fclean all
 
-fclean: clean
-	$(RM) $(NAME)
-
-re: fclean all
-
-install-hooks: install-prepush-hooks
-
-install-prepush-hooks:
-	echo "norminette" > $(PREPUSH_FILE)
-	chmod +x $(PREPUSH_FILE)
-
-.PHONY: all clean fclean re install-hooks install-prepush-hooks
+.PHONY : all bonus fclean re

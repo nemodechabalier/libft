@@ -6,13 +6,13 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:48:38 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/20 18:53:41 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:11:01 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_size(int n)
+static int	ft_count_size(int n)
 {
 	int	i;
 
@@ -54,3 +54,9 @@ char	*ft_itoa(int n)
 		itoa[i] = '-';
 	return (itoa);
 }
+/*
+int main(void)
+{
+    printf("%s\n", ft_itoa(-2147483648LL));
+    return (0);
+}*/

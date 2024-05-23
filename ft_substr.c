@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:55:44 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/20 18:26:48 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:35:48 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t i;
-	char *dest;
+	size_t	i;
+	char	*dest;
 
 	if (!s)
 		return (NULL);
@@ -24,7 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (len > i - start)
 		len = i - start;
-	dest = (char *)calloc(len + 1, sizeof(char));
+	dest = ft_calloc(len + 1, sizeof(char));
 	if (!dest)
 		return (NULL);
 	i = 0;
@@ -34,4 +34,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 	}
 	return (dest);
-} 
+}
