@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:18:18 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/24 21:56:48 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/05/24 22:33:06 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	temp = *lst;
 	while (temp)
 	{
-		ft_lstdelone(lst,del);
+		next = temp->next;
+		ft_lstdelone(temp, del);
 		temp = next;
 	}
 	*lst = NULL;
