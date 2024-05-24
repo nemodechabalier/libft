@@ -6,7 +6,7 @@
 /*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:10:40 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/21 18:35:57 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/05/24 11:20:30 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	i;
 
 	i = 0;
+	if (!s || !f)
+		return (NULL);
 	dest = ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!dest)
 		return (NULL);
