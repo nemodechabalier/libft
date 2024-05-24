@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:18:18 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/23 16:47:04 by nde-chab         ###   ########.fr       */
+/*   Updated: 2024/05/24 21:56:48 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	temp = *lst;
 	while (temp)
 	{
-		if (del != NULL)
-			del(temp->content);
-		next = temp->next;
-		free(temp);
+		ft_lstdelone(lst,del);
 		temp = next;
 	}
 	*lst = NULL;
