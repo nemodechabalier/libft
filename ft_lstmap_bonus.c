@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nde-chab <nde-chab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:41:01 by nde-chab          #+#    #+#             */
-/*   Updated: 2024/05/24 22:00:50 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/05/25 18:20:05 by nde-chab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,22 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*dest;
 	t_list	*temp;
+	void	*content;
 
 	if (!lst || !f)
 		return (NULL);
-	dest = ft_lstnew(f(lst->content));
-	if (!dest)
-		return (NULL);
-	temp = dest;
-	lst = lst->next;
+	dest = NULL;
 	while (lst)
 	{
-		temp->next = ft_lstnew(f(lst->content));
-		if (temp->next == NULL)
+		content = f(lst->content);
+		temp = ft_lstnew(content);
+		if (temp == NULL)
 		{
-			ft_lstclear(&dest, del);
-			return (NULL);
+			del(content);
+			return (ft_lstclear(&dest, del), NULL);
 		}
-		temp = temp->next;
 		lst = lst->next;
+		ft_lstadd_back(&dest,temp);
 	}
 	return (dest);
 }
